@@ -1,0 +1,13 @@
+/public/bower_components
+/public/scripts/ajaxRequester.js
+/public/scripts/loginValidator.js
+/config/passport/index.js
+/controllers/simple-article-controller.js
+/controllers/source-item-controller.js
+/controllers/common-controller.js
+/controllers/comment-controller.js
+/controllers/auth-controller.js
+/controllers/details-article-controller.js
+/controllers/users-controller.js
+/tests/users-data-tests.js
+/tests/simple-article-data-tests.js

@@ -1,0 +1,23 @@
+{
+  "name": "w",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "kjifw <kjifw@kjifw.kjifw>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "toastr": "^2.1.3",
+    "crypto-js": "^3.1.8"
+  }
+}
