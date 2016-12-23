@@ -11,7 +11,7 @@ module.exports = function (app, data) {
         .get("/list", sourceController.getAllSources)
         .get("/select-media", sourceController.getAllSources)
         .post("/select-media", sourceController.saveSelectedSourceItemsToUser)
-        .get("/source-details/:id", sourceController.getSourceDetails);
+        .get("/source-details/:id", sourceController.getSourceDetails);// ?
 
     app.use("/sources", sourcesRouter);
 }

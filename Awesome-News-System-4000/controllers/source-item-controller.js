@@ -10,12 +10,12 @@ module.exports = function (data) {
                     //if (req.isAuthenticated()) {
                        return res.json({
                             sourceItems: sourceItems,
-                            user: {
-                                username: req.user.username,
-                                settings: req.user.settings,
-                                selectedMedia: req.user.selectedMedia,
-                                favouriteArticles: req.user.favouriteArticles
-                            }
+                            // user: {
+                            //     username: req.user.username,
+                            //     settings: req.user.settings,
+                            //     selectedMedia: req.user.selectedMedia,
+                            //     favouriteArticles: req.user.favouriteArticles
+                            // }
                         });
                     // } else {
                     //     res.render("../views/sources/sources-list", {
@@ -25,7 +25,7 @@ module.exports = function (data) {
                     // }
                 })
                 .catch(err => {
-                    return res.json("Page not found.");
+                    return res.json(err);
                 });
         },
         saveSelectedSourceItemsToUser(req, res) {
