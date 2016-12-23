@@ -5,7 +5,7 @@ const passport = require("passport");
 module.exports = function (data) {
     return {
         login(req, res, next) {
-            const auth = passport.authenticate('local', function (error, user) {
+            const auth = passport.authenticate('jwt', function (error, user) {
 
                 if (error) {
                     next(error);
@@ -27,7 +27,8 @@ module.exports = function (data) {
                             username: req.user.username,
                             settings: req.user.settings,
                             selectedMedia: req.user.selectedMedia,
-                            favouriteArticles: req.user.favouriteArticles
+                            favouriteArticles: req.user.favouriteArticles,
+                            token: req.user.token
                         }
                     });
                 });
@@ -39,7 +40,8 @@ module.exports = function (data) {
             const user = {
                 username: req.body.username,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                token: req.body.token
             };
 
             data.getAllSourceItemsIds()
@@ -68,7 +70,8 @@ module.exports = function (data) {
                                     username: dbUser.username,
                                     settings: dbUser.settings,
                                     selectedMedia: dbUser.selectedMedia,
-                                    favouriteArticles: dbUser.favouriteArticles
+                                    favouriteArticles: dbUser.favouriteArticles,
+                                    token: req.user.token
                                 }
                             });
                         })

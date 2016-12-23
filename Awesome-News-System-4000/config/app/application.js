@@ -6,6 +6,7 @@ const express = require("express");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const data = require("../../data/index")(config);
 
@@ -22,6 +23,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+app.use(cors());
 
 require("../passport")(app, data);
 require("../../routers")(app, data);
