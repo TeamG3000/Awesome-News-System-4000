@@ -1,11 +1,14 @@
 'use strict';
 
 const passport = require("passport");
+const jwt = require('jwt-simple');
+
+const config = require('../config/passport/config');
 
 module.exports = function (data) {
     return {
         login(req, res, next) {
-            const auth = passport.authenticate('jwt', function (error, user) {
+            const auth = passport.authenticate('local', function (error, user) {
 
                 if (error) {
                     next(error);
@@ -22,13 +25,16 @@ module.exports = function (data) {
                         return;
                     }
 
+                    var token = jwt.encode({ username: req.body.username }, config.jwtSecret);
+                    //res.json({ token: token });
+
                     return res.json({
                         user: {
                             username: req.user.username,
                             settings: req.user.settings,
                             selectedMedia: req.user.selectedMedia,
                             favouriteArticles: req.user.favouriteArticles,
-                            token: req.user.token
+                            token: token
                         }
                     });
                 });
@@ -65,7 +71,7 @@ module.exports = function (data) {
                                 }
                             });
 
-                           return res.json({
+                            return res.json({
                                 user: {
                                     username: dbUser.username,
                                     settings: dbUser.settings,

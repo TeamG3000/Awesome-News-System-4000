@@ -3,7 +3,7 @@
 const passport = require('passport');
 
 module.exports = function (app, data) {
-    // const localStrategy = require("./local-strategy")(passport, data);
+    const localStrategy = require("./local-strategy")(passport, data);
     const jwtStrategy = require('./jwt-strategy')(passport, data);
 
     passport.serializeUser((user, done) => {

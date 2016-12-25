@@ -21,5 +21,5 @@ module.exports = function (passport, data) {
                 .catch(error => done(error, false));
         });
 
-    //passport.use(authStrategy);
+    passport.use(authStrategy);
 }

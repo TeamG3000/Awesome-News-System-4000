@@ -24,7 +24,9 @@ module.exports = function(passport, data) {
             return done(new Error("User not found"), null);
         }
     });
+    
     passport.use(strategy);
+
     return {
         initialize: function() {
             return passport.initialize();

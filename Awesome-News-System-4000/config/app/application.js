@@ -3,7 +3,7 @@
 const config = require("./index");
 
 const express = require("express");
-const session = require("express-session");
+//const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -18,11 +18,11 @@ app.use("/static", express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(session({
-    secret: "Awesome",
-    resave: true,
-    saveUninitialized: true
-}));
+// app.use(session({
+//     secret: "Awesome",
+//     resave: true,
+//     saveUninitialized: true
+// }));
 app.use(cors());
 
 require("../passport")(app, data);
