@@ -9,14 +9,8 @@ module.exports = function (data) {
                 .then(result => {
                     data.getArticleDetailsBySourceAndTitle(result)
                         .then(articleDetails => {
-                            return res.json({
-                                result: articleDetails//,
-                                // user: {
-                                //     username: req.user.username,
-                                //     settings: req.user.settings,
-                                //     selectedMedia: req.user.selectedMedia,
-                                //     favouriteArticles: req.user.favouriteArticles
-                                // }
+                            return res.status(200).json({
+                                result: articleDetails
                             });
                         });
                 });
@@ -33,10 +27,10 @@ module.exports = function (data) {
                     if (isContained === 0) {
                         data.addArticleToUserFavorites(req.user, article, req.params.id)
                             .then(() => {
-                                return res.json("Article added to favourite articles.");
+                                return res.status(200).json("Article added to favourite articles.");
                             })
                     } else {
-                        return res.json("Can't add article to favourite articles.")
+                        return res.status(406).json("Can't add article to favourite articles.")
                     }
                 })
         },
@@ -45,11 +39,11 @@ module.exports = function (data) {
                 .then(article => {
                     let rating = req.body.rating;
                     if (isNaN(rating)) {
-                        return res.json("Rating must be number.");
+                        return res.status(405).json("Rating must be number.");
                     }
 
                     if (+rating < 0 || +rating > 5) {
-                        return res.json("Rating must be between 0 and 5.");
+                        return res.status(405).json("Rating must be between 0 and 5.");
                     }
 
                     let newRating = (article.rating * article.timesRated) + +rating;
@@ -58,7 +52,7 @@ module.exports = function (data) {
                     let ratingToAdd = newRating / article.timesRated;
                     data.addRatingToArticle(article.id, ratingToAdd, article.timesRated)
                         .then(updatedArticle => {
-                            return res.json({
+                            return res.status(200).json({
                                 message: "Rating added successfully.",
                                 article: updatedArticle
                             });

@@ -7,25 +7,12 @@ module.exports = function (data) {
         getAllSources(req, res) {
             data.getAllSourceItems()
                 .then(sourceItems => {
-                    //if (req.isAuthenticated()) {
-                       return res.json({
-                            sourceItems: sourceItems,
-                            // user: {
-                            //     username: req.user.username,
-                            //     settings: req.user.settings,
-                            //     selectedMedia: req.user.selectedMedia,
-                            //     favouriteArticles: req.user.favouriteArticles
-                            // }
+                       return res.status(200).json({
+                            sourceItems: sourceItems
                         });
-                    // } else {
-                    //     res.render("../views/sources/sources-list", {
-                    //         result: sourceItems,
-                    //         user: req.user
-                    //     });
-                    // }
                 })
                 .catch(err => {
-                    return res.json(err);
+                    return res.status(404).json(err);
                 });
         },
         saveSelectedSourceItemsToUser(req, res) {
@@ -38,10 +25,10 @@ module.exports = function (data) {
 
             data.updateUserWithSelectedMedia(userId, selectedSourceItems)
                 .then(() => {
-                    return res.json("Selected media updated.");
+                    return res.status(200).json("Selected media updated.");
                 })
                 .catch(err => {
-                    return res.json("Can't save selected media.");
+                    return res.status(405).json("Can't save selected media.");
                 });
         },
         getSourceDetails(req, res) {
@@ -59,13 +46,13 @@ module.exports = function (data) {
                                 country: sourceItem.country,
                                 urlsToLogos: sourceItem.urlsToLogos
                             }
-                            return res.json(itemToReturn);
+                            return res.status(200).json(itemToReturn);
                         } else {
-                            return res.json("Can't find source.");
+                            return res.status(404).json("Can't find source.");
                         }
                     });
             } else {
-                return res.json("Not authenticated.");
+                return res.status(405).json("Not authenticated.");
             }
         }
     }

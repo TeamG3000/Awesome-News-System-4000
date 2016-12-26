@@ -10,7 +10,7 @@ module.exports = function (data) {
             }
 
             if (isNaN(req.query.page)) {
-                return res.json("page not found.");
+                return res.status(404).json("page not found.");
             }
 
             data.getAllSourceItemsIds()
@@ -25,23 +25,24 @@ module.exports = function (data) {
                     data.getNewestSimpleArticles(req.query.page, selectedMedia)
                         .then(simpleArticles => {
                             if (req.headers["requester"] === "ajax") {
-                                return res.json({
+                                return res.status(200).json({
                                     simpleArticles: simpleArticles
                                 });
                             } else {
-                               return res.json({
+                               return res.status(200).json({
                                     simpleArticles: simpleArticles,
                                     user: {
                                         username: req.user.username,
                                         settings: req.user.settings,
                                         selectedMedia: req.user.selectedMedia,
-                                        favouriteArticles: req.user.favouriteArticles
+                                        favouriteArticles: req.user.favouriteArticles,
+                                        token: req.user.token
                                     }
                                 });
                             }
                         })
                         .catch(err => {
-                            return res.json("Page not found.");
+                            return res.status(404).json("Page not found.");
                         });
                 });
         }

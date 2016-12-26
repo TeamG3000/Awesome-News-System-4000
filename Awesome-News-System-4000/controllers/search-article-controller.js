@@ -11,19 +11,13 @@ module.exports = function (data) {
                     .replace(/"/g, "&quot;")
                     .replace(/'/g, "&#039;");
                 data.getSimpleArticleByName(searchPhrase)
-                    .then(article => {
-                        return res.json({
-                            articles: article,
-                            user: {
-                                username: req.user.username,
-                                settings: req.user.settings,
-                                selectedMedia: req.user.selectedMedia,
-                                favouriteArticles: req.user.favouriteArticles
-                            }
+                    .then(articles => {
+                        return res.status(200).json({
+                            articles: articles
                         });
                     });
             } else {
-                return res.json("No articles found.");
+                return res.status(404).json("No articles found.");
             }
         }
     }

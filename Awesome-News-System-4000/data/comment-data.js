@@ -19,11 +19,11 @@ module.exports = function (models) {
         addComment(articleId, comment) {
             return new Promise((resolve, reject) => {
                 if (comment.content.length === 0) {
-                    reject("Comment content can not be empty");
+                    return reject("Comment content can not be empty");
                 }
 
                 if (comment.author.length === 0) {
-                    reject("Comment content can not be empty");
+                    return reject("Comment content can not be empty");
                 }
 
                 const newComment = new Comment({

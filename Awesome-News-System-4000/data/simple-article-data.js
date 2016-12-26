@@ -10,9 +10,9 @@ module.exports = function (models) {
                             return reject(err);
                         }
 
-                        // if (page > result.pages) {
-                        //     return reject(page);
-                        // }
+                        if (page > result.pages) {
+                            return reject(page);
+                        }
                         result.docs.totalPages = result.pages;
                         return resolve(result.docs);
                     });

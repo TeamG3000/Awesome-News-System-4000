@@ -16,7 +16,7 @@ module.exports = function (data) {
                 }
 
                 if (!user) {
-                    return res.json("Not authorized.");
+                    return res.status(405).json("Not authorized.");
                 }
 
                 req.login(user, error => {
@@ -26,9 +26,8 @@ module.exports = function (data) {
                     }
 
                     var token = jwt.encode({ username: req.body.username }, config.jwtSecret);
-                    //res.json({ token: token });
 
-                    return res.json({
+                    return res.status(200).json({
                         user: {
                             username: req.user.username,
                             settings: req.user.settings,
@@ -71,7 +70,7 @@ module.exports = function (data) {
                                 }
                             });
 
-                            return res.json({
+                            return res.status(200).json({
                                 user: {
                                     username: dbUser.username,
                                     settings: dbUser.settings,
