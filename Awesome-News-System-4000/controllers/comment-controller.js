@@ -16,28 +16,22 @@ module.exports = function (data) {
 
         },
         createComment(req, res) {
-            if (!req.isAuthenticated()) {
-                return res.status(405).json("Not Authenticated.");
-            }
-
-            const commentContent = req.body.commentContent;
+            let commentContent = req.body.commentContent;
+            console.log(req.body.commentContent);
             if (commentContent === undefined || commentContent.length === 0) {
                 return res.status(405).json("Comment can't be empty.");
             }
 
-            const username = req.user.toObject().username;
-            const newComment = {
+            let username = req.body.user.username;
+            let newComment = {
                 author: username,
-                content: req.body.commentContent,
+                content: commentContent,
                 date: new Date()
             };
 
             const articleId = req.body.articleId;
 
-            data.addComment(null, newComment)
-                .then((comment) => {
-                    return data.addCommentByArticle(articleId, comment);
-                })
+            data.addCommentByArticle(articleId, newComment)
                 .then(article => {
                     return res.status(200).json({
                         comments: article.comments

@@ -78,9 +78,9 @@ module.exports = function (models) {
                 });
             });
         },
-        updateUserWithSelectedMedia(username, selectedMedia) {
+        updateUserWithSelectedMedia(userId, selectedMedia) {
             return new Promise((resolve, reject) => {
-                User.findOne({ username: username }, (err, dbUser) => {
+                User.findOne({ _id: userId }, (err, dbUser) => {
                     if (err) {
                         return reject(err);
                     }
@@ -90,6 +90,7 @@ module.exports = function (models) {
                     selectedMedia.forEach(media => {
                         dbUser.selectedMedia.push({ name: media });
                     });
+
                     dbUser.save();
                 });
                 return resolve();

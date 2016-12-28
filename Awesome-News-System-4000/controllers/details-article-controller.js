@@ -19,16 +19,19 @@ module.exports = function (data) {
             data.getDetailedArticleById(req.params.id)
                 .then(article => {
                     let isContained = 0;
-                    req.user.favouriteArticles.forEach(function (element) {
+                    req.body.user.favouriteArticles.forEach(function (element) {
                         if (element.title === article.title) {
                             isContained += 1;
                         }
                     }, this);
                     if (isContained === 0) {
-                        data.addArticleToUserFavorites(req.user, article, req.params.id)
-                            .then(() => {
-                                return res.status(200).json("Article added to favourite articles.");
-                            })
+                        data.getUserByUsername(req.body.user.username)
+                            .then(user => {
+                                data.addArticleToUserFavorites(user, article, req.params.id)
+                                    .then(() => {
+                                        return res.status(200).json("Article added to favourite articles.");
+                            });
+                        });
                     } else {
                         return res.status(406).json("Can't add article to favourite articles.")
                     }
