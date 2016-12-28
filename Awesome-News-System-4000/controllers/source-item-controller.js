@@ -32,7 +32,7 @@ module.exports = function (data) {
                 });
         },
         getSourceDetails(req, res) {
-            if (req.isAuthenticated()) {
+            //if (req.isAuthenticated()) {
                 data.getSourceById(req.params.id)
                     .then(sourceItem => {
                         if (sourceItem) {
@@ -51,9 +51,9 @@ module.exports = function (data) {
                             return res.status(404).json("Can't find source.");
                         }
                     });
-            } else {
-                return res.status(405).json("Not authenticated.");
-            }
+            // } else {
+            //     return res.status(405).json("Not authenticated.");
+            // }
         }
     }
 }
