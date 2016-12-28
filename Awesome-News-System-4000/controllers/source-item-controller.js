@@ -16,14 +16,14 @@ module.exports = function (data) {
                 });
         },
         saveSelectedSourceItemsToUser(req, res) {
-            let userId = req.session.passport.user;
+            let username = req.body.username;
             let selectedSourceItems = req.body.selectedMedia;
 
             if (!Array.isArray(selectedSourceItems)) {
                 selectedSourceItems = [selectedSourceItems];
             }
 
-            data.updateUserWithSelectedMedia(userId, selectedSourceItems)
+            data.updateUserWithSelectedMedia(username, selectedSourceItems)
                 .then(() => {
                     return res.status(200).json("Selected media updated.");
                 })
