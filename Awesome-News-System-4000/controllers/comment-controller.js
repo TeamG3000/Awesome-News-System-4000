@@ -17,7 +17,6 @@ module.exports = function (data) {
         },
         createComment(req, res) {
             let commentContent = req.body.commentContent;
-            console.log(req.body.commentContent);
             if (commentContent === undefined || commentContent.length === 0) {
                 return res.status(405).json("Comment can't be empty.");
             }
