@@ -2,7 +2,7 @@
 
 let passport = require("passport");
 
-module.exports = function (data) {
+module.exports = function(data) {
     return {
         getSimpleArticles(req, res) {
             if (req.query.page === undefined) {
@@ -29,7 +29,7 @@ module.exports = function (data) {
                                     simpleArticles: simpleArticles
                                 });
                             } else {
-                               return res.status(200).json({
+                                return res.status(200).json({
                                     simpleArticles: simpleArticles,
                                     user: {
                                         username: req.user.username,
@@ -44,6 +44,17 @@ module.exports = function (data) {
                         .catch(err => {
                             return res.status(404).json("Page not found.");
                         });
+                });
+        },
+        getTopRatedArticles(req, res) {
+            data.getTopOneHundredArticles()
+                .then(topArticles => {
+                    console.log(topArticles);
+                    return res.status(200).json({ topArticles: topArticles });
+
+                })
+                .catch(err => {
+                    return res.status(404).json("top articles error");
                 });
         }
     }

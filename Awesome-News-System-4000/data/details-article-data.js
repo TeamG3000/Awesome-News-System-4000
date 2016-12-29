@@ -1,6 +1,6 @@
 /* globals module Promise*/
 
-module.exports = function (models) {
+module.exports = function(models) {
     let detailedArticle = models.detailedArticle;
     let dbUser = models.user;
 
@@ -80,6 +80,16 @@ module.exports = function (models) {
 
                     return resolve(article)
                 });
+            });
+        },
+        getTopOneHundredArticles() {
+            return new Promise((resolve, reject) => {
+                detailedArticle.find({}, (err, articles) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve(articles);
+                }).where('rating').gt(0).sort({ rating: -1 }).limit(100);
             });
         }
     }

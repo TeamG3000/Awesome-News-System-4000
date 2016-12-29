@@ -1,11 +1,11 @@
 /* globals module Promise*/
-module.exports = function (models) {
+module.exports = function(models) {
     let simpleArticle = models.simpleArticle;
     return {
         getNewestSimpleArticles(page, selectedMedia) {
             return new Promise((resolve, reject) => {
                 simpleArticle.paginate({ source: { $in: selectedMedia } }, { page: page, limit: 10, sort: { publishedAt: -1 } },
-                    function (err, result) {
+                    function(err, result) {
                         if (err) {
                             return reject(err);
                         }
