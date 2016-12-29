@@ -49,7 +49,6 @@ module.exports = function(data) {
         getTopRatedArticles(req, res) {
             data.getTopOneHundredArticles()
                 .then(topArticles => {
-                    console.log(topArticles);
                     return res.status(200).json({ topArticles: topArticles });
 
                 })
