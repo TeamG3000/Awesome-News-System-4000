@@ -27,7 +27,7 @@ module.exports = function (data) {
                     if (isContained === 0) {
                         data.getUserByUsername(req.body.user.username)
                             .then(user => {
-                                data.addArticleToUserFavorites(user, article, req.params.id)
+                                data.addArticleToUserFavorites(user, article, req.body.originalId)
                                     .then(() => {
                                         return res.status(200).json("Article added to favourite articles.");
                             });
