@@ -81,16 +81,6 @@ module.exports = function(models) {
                     return resolve(article)
                 });
             });
-        },
-        getTopOneHundredArticles() {
-            return new Promise((resolve, reject) => {
-                detailedArticle.find({}, (err, articles) => {
-                    if (err) {
-                        return reject(err);
-                    }
-                    return resolve(articles);
-                }).where('rating').gt(0).sort({ rating: -1 }).limit(100);
-            });
         }
     }
 }

@@ -2,7 +2,8 @@
 
 let passport = require("passport");
 
-module.exports = function(data) {
+module.exports = function (data) {
+    let allSimpleArticles = [];
     return {
         getSimpleArticles(req, res) {
             if (req.query.page === undefined) {
@@ -48,12 +49,22 @@ module.exports = function(data) {
         },
         getTopRatedArticles(req, res) {
             data.getTopOneHundredArticles()
-                .then(topArticles => {
-                    return res.status(200).json({ topArticles: topArticles });
-
+                .then(topDetailedArticles => {
+                    let promiseArr = [];
+                    for (var index = 0; index < topDetailedArticles.length; index++) {
+                        let simpleArticle = data.getSingleSimpleArticleByName(topDetailedArticles[index].title, topDetailedArticles[index].source)
+                        promiseArr.push(simpleArticle);
+                    }
+                    return promiseArr;
                 })
-                .catch(err => {
-                    return res.status(404).json("top articles error");
+                .then(promiseArr => {
+                    Promise.all(promiseArr)
+                        .then(articles => {
+                            return res.status(200).json({ topArticles: articles });
+                        })
+                        .catch(err => {
+                            return res.status(404).json("top articles error");
+                        });
                 });
         }
     }

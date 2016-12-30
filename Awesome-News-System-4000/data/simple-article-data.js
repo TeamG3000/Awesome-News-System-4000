@@ -1,6 +1,7 @@
 /* globals module Promise*/
 module.exports = function(models) {
     let simpleArticle = models.simpleArticle;
+    let detailedArticle= models.detailedArticle;
     return {
         getNewestSimpleArticles(page, selectedMedia) {
             return new Promise((resolve, reject) => {
@@ -46,6 +47,26 @@ module.exports = function(models) {
                     }
                     return resolve(article || null);
                 });
+            });
+        },
+         getSingleSimpleArticleByName(title, source) {
+            return new Promise((resolve, reject) => {
+                simpleArticle.findOne({ "title": title ,"source":source }, (err, article) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve(article || null);
+                });
+            });
+        },
+        getTopOneHundredArticles() {
+            return new Promise((resolve, reject) => {
+                detailedArticle.find({}, (err, articles) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve(articles);
+                }).where('rating').gt(0).sort({ rating: -1 }).limit(100);
             });
         }
     }
