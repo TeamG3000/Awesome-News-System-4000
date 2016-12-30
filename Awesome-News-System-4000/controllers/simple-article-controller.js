@@ -10,9 +10,9 @@ module.exports = function (data) {
                 .then(selectedMedia => {
                     if (req.body.user !== null && req.body.user !== undefined) {
                         selectedMedia = [];
-                        console.log(req.body.user.selectedMedia);
+                        console.log(req.body.user);
                         req.body.user.selectedMedia.forEach(media => {
-                            selectedMedia.push(media.name);
+                            selectedMedia.push(media);
                         });
                     }
                     console.log(req.body.page);
