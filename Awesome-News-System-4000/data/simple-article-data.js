@@ -1,12 +1,12 @@
 /* globals module Promise*/
-module.exports = function(models) {
+module.exports = function (models) {
     let simpleArticle = models.simpleArticle;
-    let detailedArticle= models.detailedArticle;
+    let detailedArticle = models.detailedArticle;
     return {
         getNewestSimpleArticles(page, selectedMedia) {
             return new Promise((resolve, reject) => {
                 simpleArticle.paginate({ source: { $in: selectedMedia } }, { page: page, limit: 10, sort: { publishedAt: -1 } },
-                    function(err, result) {
+                    function (err, result) {
                         if (err) {
                             return reject(err);
                         }
@@ -14,6 +14,7 @@ module.exports = function(models) {
                         if (page > result.pages) {
                             return reject(page);
                         }
+
                         result.docs.totalPages = result.pages;
                         return resolve(result.docs);
                     });
@@ -49,9 +50,9 @@ module.exports = function(models) {
                 });
             });
         },
-         getSingleSimpleArticleByName(title, source) {
+        getSingleSimpleArticleByName(title, source) {
             return new Promise((resolve, reject) => {
-                simpleArticle.findOne({ "title": title ,"source":source }, (err, article) => {
+                simpleArticle.findOne({ "title": title, "source": source }, (err, article) => {
                     if (err) {
                         return reject(err);
                     }

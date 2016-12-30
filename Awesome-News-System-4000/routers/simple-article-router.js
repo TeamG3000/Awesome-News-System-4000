@@ -10,7 +10,7 @@ module.exports = function(app, data) {
         .get("/", function(req, res) {
             res.redirect("/home");
         })
-        .get("/home", simpleArticleController.getSimpleArticles)
+        .post("/home", simpleArticleController.getSimpleArticles)
         .get("/topRatedArticles", simpleArticleController.getTopRatedArticles);
 
     app.use("/", simpleArticlesRouter);

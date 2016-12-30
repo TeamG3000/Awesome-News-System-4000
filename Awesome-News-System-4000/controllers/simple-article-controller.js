@@ -6,38 +6,33 @@ module.exports = function (data) {
     let allSimpleArticles = [];
     return {
         getSimpleArticles(req, res) {
-            if (req.query.page === undefined) {
-                req.query.page = 1;
-            }
-
-            if (isNaN(req.query.page)) {
-                return res.status(404).json("page not found.");
-            }
-
             data.getAllSourceItemsIds()
                 .then(selectedMedia => {
-                    if (req.isAuthenticated()) {
+                    if (req.body.user !== null && req.body.user !== undefined) {
                         selectedMedia = [];
-                        req.user.selectedMedia.forEach(media => {
+                        console.log(req.body.user.selectedMedia);
+                        req.body.user.selectedMedia.forEach(media => {
                             selectedMedia.push(media.name);
                         });
                     }
-
-                    data.getNewestSimpleArticles(req.query.page, selectedMedia)
+                    console.log(req.body.page);
+                    console.log(selectedMedia);
+                    data.getNewestSimpleArticles(req.body.page, selectedMedia)
                         .then(simpleArticles => {
-                            if (req.headers["requester"] === "ajax") {
+                            if (req.body.user === null || req.body.user === undefined) {
                                 return res.status(200).json({
                                     simpleArticles: simpleArticles
                                 });
                             } else {
+                                console.log(req.body.user.username);
                                 return res.status(200).json({
                                     simpleArticles: simpleArticles,
                                     user: {
-                                        username: req.user.username,
-                                        settings: req.user.settings,
-                                        selectedMedia: req.user.selectedMedia,
-                                        favouriteArticles: req.user.favouriteArticles,
-                                        token: req.user.token
+                                        username: req.body.user.username,
+                                        settings: req.body.user.settings,
+                                        selectedMedia: req.body.user.selectedMedia,
+                                        favouriteArticles: req.body.user.favouriteArticles,
+                                        token: req.body.user.token
                                     }
                                 });
                             }
