@@ -49,12 +49,12 @@ module.exports = function (data) {
                     });
                 });
         },
-        setUserSettings(req, res) {
+        setUserSettings(req, res) {            
             let settings = [];
             settings.push({
                 theme: req.body.theme
             });
-            data.updateUserSettings(req.user.id, settings)
+            data.updateUserSettings(req.body.username, settings)
                 .then(() => {
                     return res.status(200).json("Settings updated");
                 });

@@ -96,9 +96,9 @@ module.exports = function (models) {
                 return resolve();
             });
         },
-        updateUserSettings(userId, settings) {
+        updateUserSettings(username, settings) {
             return new Promise((resolve, reject) => {
-                User.findOneAndUpdate({ _id: userId }, {
+                User.findOneAndUpdate({ username: username }, {
                     $set: {
                         settings: settings
                     }

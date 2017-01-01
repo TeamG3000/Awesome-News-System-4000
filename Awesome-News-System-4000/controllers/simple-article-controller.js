@@ -10,13 +10,10 @@ module.exports = function (data) {
                 .then(selectedMedia => {
                     if (req.body.user !== null && req.body.user !== undefined) {
                         selectedMedia = [];
-                        console.log(req.body.user.selectedMedia);
                         req.body.user.selectedMedia.forEach(media => {
                             selectedMedia.push(media.name);
                         });
                     }
-                    console.log(req.body.page);
-                    console.log(selectedMedia);
                     data.getNewestSimpleArticles(req.body.page, selectedMedia)
                         .then(simpleArticles => {
                             if (req.body.user === null || req.body.user === undefined) {
@@ -24,7 +21,6 @@ module.exports = function (data) {
                                     simpleArticles: simpleArticles
                                 });
                             } else {
-                                console.log(req.body.user.username);
                                 return res.status(200).json({
                                     simpleArticles: simpleArticles,
                                     user: {
